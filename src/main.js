@@ -12,7 +12,7 @@ const { resultHandler,authCheck } = require('./middleware');
 
 const middleWareInit = (app) => {
     app.use('/',express.static(path.join(__dirname,'../public/build')))
-    app.use(cors());
+     app.use(cors());
     app.use(bodyParser.urlencoded({ extended:false ,limit: '400kb'}));
     app.use(bodyParser.json({limit: '400kb'}));
     app.use(helmet());
