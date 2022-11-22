@@ -1,11 +1,11 @@
 const AdminModel = require('../model/admin.model');
 
-const createOne = (input, callback) => { //create user 
+const createOne = (input, callback) => { //Create user
   const ins = new AdminModel(input)
   ins.save(callback)
 };
 
-const findOne = (input, callback) => { //look up user
+const findOne = (input, callback) => { //Search for single user
     AdminModel.findOne(input, callback)
 }
 

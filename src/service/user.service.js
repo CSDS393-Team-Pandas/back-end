@@ -1,11 +1,11 @@
 const UserModel = require('../model/user.model');
 
-const createOne = (input, callback) => { 
+const createOne = (input, callback) => { //Create User
   const ins = new UserModel(input)
   ins.save(callback)
 };
 
-const findOne = (input, callback) => { 
+const findOne = (input, callback) => { //Search for single user
     UserModel.findOne(input, callback)
 }
 

@@ -40,18 +40,18 @@ const AdminSchema = new mongoose.Schema({
   timestamps: true
 })
 
-AdminSchema.pre("save", async function (next) { // Encrypt and save the password
+AdminSchema.pre("save", async function (next) { //Encrypt the password before storing the data
   const user = this;
   if (!user.isModified("password")) {
     return next()
   }
   const hash = await verifyPassword(user.password);
-  user.password = hash; // Make the encrypted data to password
+  user.password = hash; //Copy encrypted data to password
   return next()
 })
 
-AdminSchema.methods.validatePassword = function (password, callback) { // 在model上挂载密码验证函数
-  bcrypt.compare(password, this.password, (err, isMatch) => { // Decrypt the password by using bcrypt compare function 
+AdminSchema.methods.validatePassword = function (password, callback) { //Mount the password verification function on the model
+  bcrypt.compare(password, this.password, (err, isMatch) => { //Decryption through bcrypt's compare function
     if (err) return callback(err);
     callback(null, isMatch);
   });

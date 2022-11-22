@@ -1,6 +1,7 @@
 const { createOne,findOne,findAll,deleteOne,updateOne } = require('../service/game.service');
-const { findOne: findUser } = require('../service/user.service')
-const { findAll: findUserRate } = require('../service/rate.service');
+const { findOne: findUser } = require('../service/user.service');
+const { findAll: findRate } = require('../service/rate.service');
+const { findAll:findGames } = require('../service/game.service');
 
 const createGameHandler = (req,res) => {
     const { price,number,thumb,imgList,tag,name,description } = req.body,
@@ -83,46 +84,37 @@ const initCategoryGameList = (req,res) => {
 
 const initLoginGameList = (req,res) => {
     const { _id } = res.locals.user;
-    let ratedList = [];
-    findUser({_id},(err,user) => {
+    findUser({_id},async (err,user) => {
         if(err) {
             return res.error('400400');
         }
         const { gameLabel } = user;
-        if(!gameLabel) {
-            return res.error('400400');
-        }
-        findUserRate({},(err,data) => {
+        const rateMap = {};
+        let rateData = await findRate({userId: _id})
+        rateData.forEach(item => {
+            rateMap[item.gameId] = item;
+        });
+        findGames({},(err,data) => {
             if(err) {
                 return res.error('500004');
             }
-            ratedList = data.map(item => item.gameId);
-            
-        })
-        findAll({},(err,data) => {
-            if(err) {
-                return res.error('500004');
-            }
-            let unRatedList = [],unfocusList = [],focusList = [],ratedGameList = [];
-            ratedGameList = data.filter(item => {
-                if(ratedList.indexOf(String(item._id)) > -1) {
-                    return true
+            let unfocusList = [],focusList = [],unRateList = [],rateList = [];
+            data.forEach((item,index) => {
+                if(Object.keys(rateMap).includes(String(item._id))) {
+                    rateList.push({...JSON.parse(JSON.stringify(item)),rate: rateMap[item._id].rate});
+                } else {
+                    unRateList.push(item);
                 }
-                unRatedList.push(item);
-                return false
             })
-
-            unfocusList = unRatedList.filter(item => {
+            unRateList.forEach(item => {
                 if(item.tag == gameLabel) {
                     focusList.push(item);
-                    return false
+                } else {
+                    unfocusList.push(item);
                 }
-                return true
             })
-
-            ratedGameList.sort((a,b) => a.rate - b.rate).reverse();
-
-            res.success([...ratedGameList,...focusList,...unfocusList])
+            rateList = rateList.sort((a,b) => b.rate - a.rate);
+            res.success([...rateList,...focusList,...unfocusList])
         })
     })
 }
@@ -168,7 +160,7 @@ const deleteAllGame = (req,res) => {
                     return res.error('500005');
                 }
             })
-            res.success({msg: '删除成功'})
+            res.success({msg: 'Successfully delete'})
         })
     })
 }

@@ -1,11 +1,11 @@
 const CommentModel = require('../model/comment.model');
 
-const createOne = (input, callback) => { //create user
+const createOne = (input, callback) => { //Create user
   const ins = new CommentModel(input)
   ins.save(callback)
 };
 
-const findOne = (input, callback) => { //look up user 
+const findOne = (input, callback) => { //Search for single user
     CommentModel.findOne(input, callback)
 }
 

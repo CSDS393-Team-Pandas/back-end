@@ -29,7 +29,7 @@ const CommentSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
-    viewTimes: { 
+    viewTimes: { //Times for views
         type: Number,
         default: 0
     },
@@ -37,7 +37,7 @@ const CommentSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    praise: { 
+    praise: { //Like
         type: Number,
         default: 0
     }

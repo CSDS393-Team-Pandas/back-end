@@ -1,14 +1,15 @@
 /**
- * @author yxz
  * @description 
  */
  const log4js = require('log4js');
  const path = require('path');
  log4js.configure({
    appenders: {
+     // Logger 1: output to console
      console: {
        type: 'console'
      },
+     // Logger 2: Output to access_http.log log file
      infoLog: {
        type: 'dateFile',
        filename: path.join(__dirname, '../logs/success.log'),
@@ -16,6 +17,7 @@
        alwaysIncludePattern: true,
        keepFileExt: true
      },
+     // Logger 3: Output to the aceess_error.log log file
      errorLog: {
        type: 'dateFile',
        filename: path.join(__dirname, '../logs/error.log'),
@@ -36,9 +38,12 @@
    }
  });
  
+ // Instantiate a normal log logger
  const loggerhttp = log4js.getLogger('http');
+ // Instantiate the error log logger
  const loggererror = log4js.getLogger('error');
  
+ // Encapsulates two loggers, normal log and error log
  const logger = {
    debug: function () {
      loggerhttp.debug(...arguments);

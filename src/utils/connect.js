@@ -3,7 +3,7 @@ const config = require('config');
 const logger = require('./logger');
 
 /**
- * @description connect to mongoDB
+ * @description Connect to mongodb database
  * */ 
 
 const connect = async () => {

@@ -4,11 +4,11 @@ const langs = {
   'zh-cn': require('../../i18n/zh-CN.json')
 };
 /**
- * process responsed data
+ * Process response data
  */
 module.exports = async (req, res, next) => {
   res.success = (data,status = 200) => {
-    const body = { code: '200', data, message: 'Successful access', success: true };
+    const body = { code: '200', data, message: 'Successful operation', success: true };
     res.body = body;
     res.status(status).json(body);
   };
@@ -21,10 +21,10 @@ module.exports = async (req, res, next) => {
 };
 
 /**
- * @description Parse the errow message
+ * @description Parse error messages
  * @param {object} ctx
- * @param {any} err error message
- * @param {number} status customized status
+ * @param {any} err Error message
+ * @param {number} status customized status code
  * @param {object} data customized error message
  */
 function parseError (req, res, err, status, data) {
@@ -79,17 +79,17 @@ function parseError (req, res, err, status, data) {
 }
 
 /**
- * @description 
+ * @description Print error log
  * @param {object} ctx
- * @param {object} err Error Message
+ * @param {object} err Error message
  */
 
 function handlerError (req, res, err) {
   const ip = req.ip;
   logger.error('Error Begin ====>');
-  logger.error('request inforamtion -- ip address：', ip, '---', req.method, req.originalUrl, '---', req.headers['user-agent'], '---- Token:>>>>>', req.headers['authorization']);
-  logger.error('get requested parametere>>>>>>:', req.query);
-  logger.error('post requested parametere>>>>>>:', req.body);
-  logger.error('Error Message', err);
+  logger.error('Information request -- ip address：', ip, '---', req.method, req.originalUrl, '---', req.headers['user-agent'], '---- Token:>>>>>', req.headers['authorization']);
+  logger.error('get request input>>>>>>:', req.query);
+  logger.error('post request input>>>>>>:', req.body);
+  logger.error('Error message', err);
   logger.error('<===== Error End');
 }

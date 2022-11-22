@@ -2,12 +2,12 @@ const multer = require("multer");
 const logger = require('../utils/logger');
 const IMAGE = "upload";
 const config = require('config')
-const imageUpload = multer({ dest: `${IMAGE}/` })
+const imageUpload = multer({ dest: 'upload/' })
 
-//Verify the files from interface
+// Verify the file carried by interface
 const singleUploadMiddle = () => imageUpload.single('upload');
 
-//Upload port
+// Upload interface
 const uploadHandler = async function(req,res){
     try {
         let name = '';
@@ -23,7 +23,7 @@ const uploadHandler = async function(req,res){
     }
 } 
 
-// Preview image
+// Picture preview
 const imagePreviewHandler = function(req,res){
     try {
         res.sendFile(`/${req.params.key}`, {

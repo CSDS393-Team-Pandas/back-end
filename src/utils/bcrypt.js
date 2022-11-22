@@ -2,13 +2,13 @@ const bcrypt = require('bcrypt');
 const config = require('config');
 
 /**
- * @description password
+ * @description Encrypt password
  * @param {string} password
  * @return {string} hash
  * */ 
 
 const verifyPassword = async (password) => {
-    const salt = await bcrypt.genSalt(config.get('salt')) //using bcrypt 模块进行数据加密
+    const salt = await bcrypt.genSalt(config.get('salt')) //Data encryption using the bcrypt module
     return bcrypt.hashSync(password, salt);
 }
 

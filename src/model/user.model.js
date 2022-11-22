@@ -42,18 +42,19 @@ const UserSchema = new mongoose.Schema({
   timestamps: true  
 })
 
-UserSchema.pre("save", async function (next) { 
+UserSchema.pre("save", async function (next) { //Encrypt the password before storing the data
     const user = this;
     if (!user.isModified("password")) {
       return next()
     }
     const hash = await verifyPassword(user.password);
-    user.password = hash; 
+    user.password = hash; //Copy encrypted data to password
     return next()
   })
   
-  UserSchema.methods.validatePassword = function (password, callback) { 
-    bcrypt.compare(password, this.password, (err, isMatch) => { 
+  UserSchema.methods.validatePassword = function (password, callback) { //Mount the password verification function on the model
+    bcrypt.compare(password, this.password, (err, isMatch) => { //Decryption through bcrypt's compare function
+      if (err) return callback(err);
       callback(null, isMatch);
     });
   };

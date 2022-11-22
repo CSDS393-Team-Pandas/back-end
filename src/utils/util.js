@@ -4,9 +4,8 @@ const config = require('config');
 const moment = require('moment');
 
 /**
- * @description randomly generate verify code
- * @author yxz
- * @param {number} length 
+ * @description Generate random length verification code
+ * @param {number} length length
  * @returns {number}
  */
 exports.generationCode = length => {
@@ -14,8 +13,8 @@ exports.generationCode = length => {
 };
 
 /**
- * @description 
- * @param {*} password 
+ * @description Password md5 encryption (add salt value)
+ * @param {*} password password
  * @returns {string}
  */
 exports.md5 = password => {
@@ -24,9 +23,8 @@ exports.md5 = password => {
 };
 
 /**
- * @description 正
- * @author yxz
- * @param {string} phone 
+ * @description Regular verification phone number
+ * @param {string} phone phone number
  */
 exports.verifyPhone = phone => {
   const regex = /^1[3-9]\d{9}$/;
@@ -34,9 +32,8 @@ exports.verifyPhone = phone => {
 };
 
 /**
- * @description 
- * @author yxz
- * @param {string} email 
+ * @description Regular verification email
+ * @param {string} email email
  * @returns true/false
  */
 exports.verifyMail = email => {
@@ -45,7 +42,8 @@ exports.verifyMail = email => {
 };
 
 /**
- * @param {*} date 日期
+ * Check whether the date format conforms to the YYYY-MM-DD format
+ * @param {*} date date
  */
 exports.verifyDate = date => {
   const regex = /^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/;  // eslint-disable-line
@@ -53,7 +51,7 @@ exports.verifyDate = date => {
 };
 
 /**
- * @description 
+ * @description Produce model number
  * @returns string
  */
 exports.modelNumber = () => {
