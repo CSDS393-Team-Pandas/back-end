@@ -3,7 +3,7 @@ module.exports = {
   "port": 8080,
   "whiteList": ["/","/api/login","/api/rateInit","/api/getGameInfo","/api/commentInit","/api/game", "/gameInfo","/api/register","/api/healthCheck","/api/upload",'/api/articleInit','/api/getArticleInfo','/admin/login','/admin/register'],
   "adminWhiteList": ['/admin/login','/admin/register'],
-  "baseUrl": "http://localhost:8080",
+  "baseUrl": "https://main.d1k1vfvwwvhbrn.amplifyapp.com/",
   "mongo": {
     "url": "mongodb+srv://Jackknack:91ZJgjqf@cluster0.izrloio.mongodb.net/?retryWrites=true&w=majority",
   },
